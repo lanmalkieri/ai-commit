@@ -1,0 +1,12 @@
+Generate a short, imperative mood commit message summarizing the following code changes (git diff):
+
+```diff
+{{.Diff}}
+```
+
+Rules:
+1. Be concise (ideally < 72 chars).
+2. Use the imperative mood ("Add feature" not "Added feature").
+3. Do not include the diff itself in the final message.
+4. Output only the raw commit message text.
+5. Do not use quotation marks around the message.
