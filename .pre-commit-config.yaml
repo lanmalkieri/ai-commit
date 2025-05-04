@@ -1,0 +1,20 @@
+ # .pre-commit-config.yaml
+ repos:
+ - repo: local
+   hooks:
+     - id: trufflehog
+       name: TruffleHog
+       description: Detect secrets; fail only on verified leaks.
+       entry: >
+         bash -c '
+           docker run --rm \
+             -v "$(pwd):/workdir" \
+             trufflesecurity/trufflehog:latest \
+             git file:///workdir \
+             --since-commit HEAD \
+             --only-verified \
+             --fail
+         '
+       language: system          # we’re running a shell snippet, not Python
+       pass_filenames: false      # scan the diff, filenames are irrelevant
+       stages: [pre-commit, pre-push]

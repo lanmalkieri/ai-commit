@@ -27,7 +27,7 @@ Download the appropriate binary for your platform from the [GitHub Releases](htt
 ### Using Go Install
 
 ```bash
-go install github.com/cstobie/ai-commit@latest
+go install github.com/lanmalkieri/ai-commit@latest
 ```
 
 ## Configuration
