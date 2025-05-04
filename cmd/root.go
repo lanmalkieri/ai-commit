@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/cstobie/ai-commit/internal/config"
 	"github.com/spf13/cobra"
@@ -41,15 +40,16 @@ func init() {
 	
 	// Add version flag
 	rootCmd.Flags().BoolP("version", "V", false, "Print version information and exit")
-	rootCmd.Run = func(cmd *cobra.Command, args []string) {
+	rootCmd.RunE = func(cmd *cobra.Command, args []string) error {
 		versionFlag, _ := cmd.Flags().GetBool("version")
 		if versionFlag {
 			fmt.Printf("ai-commit version %s\n", version)
-			os.Exit(0)
+			return nil
 		}
 		
-		// If no version flag or other command, show help
-		cmd.Help()
+		// If no version flag or other command, run the generate command by default
+		// This makes `ai-commit` behave the same as `ai-commit generate`
+		return generateCmd.RunE(generateCmd, args)
 	}
 }
 

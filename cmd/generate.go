@@ -4,7 +4,6 @@ import (
 	"context"
 	"io"
 	"log"
-	"os"
 	"time"
 
 	"github.com/cstobie/ai-commit/internal/app"

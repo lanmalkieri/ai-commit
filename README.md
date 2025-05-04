@@ -47,13 +47,15 @@ The tool is configured using environment variables, all prefixed with `AICOMMIT_
 ## Usage
 
 ```bash
-# Generate a commit message and prompt for commit confirmation (default)
+# Generate a commit message and prompt for commit confirmation (default behavior)
 ai-commit
 
 # Generate a message without interactive confirmation
 ai-commit gen -n
 
-# Short form command (equivalent to ai-commit)
+# These commands are all equivalent (they generate a message and prompt for confirmation)
+ai-commit
+ai-commit generate 
 ai-commit gen
 
 # Show version information
