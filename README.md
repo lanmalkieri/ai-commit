@@ -58,6 +58,9 @@ ai-commit
 ai-commit generate 
 ai-commit gen
 
+# The confirmation is simple - just press Enter to commit
+# (or any other key to abort)
+
 # Show version information
 ai-commit --version
 
@@ -81,11 +84,16 @@ The tool comes with two built-in templates:
 # Stage some changes
 git add src/feature.js
 
-# Generate a commit message
-ai-commit gen
+# Generate a commit message and commit in one step
+ai-commit
 
 # Output example:
+# Generated commit message:
+# ---
 # feat: add user authentication function with JWT support
+# ---
+# Press Enter to commit with this message (or any key to abort):
+# Changes committed successfully!
 ```
 
 ## Development
