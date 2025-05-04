@@ -84,13 +84,13 @@ func RunGenerate(ctx context.Context, cfg config.Config, verbose bool, interacti
 		}
 		
 		// Prompt for confirmation
-		fmt.Print("Commit with this message? [Y/n]: ")
+		fmt.Print("Press Enter to commit with this message (or any key to abort): ")
 		reader := bufio.NewReader(os.Stdin)
 		response, _ := reader.ReadString('\n')
 		response = strings.TrimSpace(response)
 		
-		// Process response
-		if response == "" || response == "y" || response == "Y" {
+		// Process response - empty means Enter was pressed
+		if response == "" {
 			// User confirmed, proceed with commit
 			if err := performCommit(repoRoot, generatedMsg, verbose); err != nil {
 				return err
