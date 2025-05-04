@@ -10,7 +10,7 @@ Clone the repository and build the binary:
 
 ```bash
 # Clone the repository
-git clone https://github.com/cstobie/ai-commit.git
+git clone https://github.com/lanmalkieri/ai-commit.git
 cd ai-commit
 
 # Build the binary
@@ -22,7 +22,7 @@ go install
 
 ### From GitHub Releases
 
-Download the appropriate binary for your platform from the [GitHub Releases](https://github.com/cstobie/ai-commit/releases) page and place it in your PATH.
+Download the appropriate binary for your platform from the [GitHub Releases](https://github.com/lanmalkieri/ai-commit/releases) page and place it in your PATH.
 
 ### Using Go Install
 
