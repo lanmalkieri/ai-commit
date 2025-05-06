@@ -27,16 +27,44 @@ func RunGenerate(ctx context.Context, cfg config.Config, verbose bool, interacti
 		log.Printf("Found git repository at: %s", repoRoot)
 	}
 
-	// Step 2: Get the staged diff
-	diff, err := git.GetStagedDiff(repoRoot)
+	// Step 2: Get the staged diff (check if using smart diff for large commits)
+	var diff string
+	// First, get a quick count of changed files
+	filesList, err := git.GetStagedFilesList(repoRoot)
 	if err != nil {
-		return fmt.Errorf("failed to get staged changes: %w", err)
+		return fmt.Errorf("failed to get staged files list: %w", err)
+	}
+	
+	// Count files by counting newlines
+	fileCount := 0
+	if filesList != "" {
+		fileCount = len(strings.Split(strings.TrimSpace(filesList), "\n"))
 	}
 	
 	// Check if there are any staged changes
-	if diff == "" {
+	if filesList == "" {
 		fmt.Println("No staged changes found. Stage changes first with 'git add'.")
 		return nil
+	}
+	
+	// For multi-file commits, use smart diff to preserve context
+	if fileCount > 5 { // Threshold for "large" commits
+		if verbose {
+			log.Printf("Large commit detected (%d files). Using smart diff processing.", fileCount)
+		}
+		// Use the smart diff processor with the configured token limit
+		smartDiff, err := git.PrepareSmartDiff(repoRoot, cfg.MaxInputTokens)
+		if err != nil {
+			return fmt.Errorf("failed to prepare smart diff: %w", err)
+		}
+		diff = smartDiff
+	} else {
+		// For smaller commits, use the standard diff
+		standardDiff, err := git.GetStagedDiff(repoRoot)
+		if err != nil {
+			return fmt.Errorf("failed to get staged changes: %w", err)
+		}
+		diff = standardDiff
 	}
 	
 	if verbose {

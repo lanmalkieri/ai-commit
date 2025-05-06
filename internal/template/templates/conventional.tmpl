@@ -1,4 +1,4 @@
-Generate a commit message following the Conventional Commits format (https://www.conventionalcommits.org/) for the following code changes (git diff):
+Generate a commit message following the Conventional Commits format (https://www.conventionalcommits.org/) for the following code changes:
 
 ```diff
 {{.Diff}}
@@ -14,7 +14,15 @@ Rules:
 7. Optional body: separate from subject with a blank line, explain what and why, not how
 8. Output only the raw commit message text, without the diff or any other text
 
+For large commits with many files:
+- Focus on the overall theme of the changes rather than specific implementation details
+- Look for common patterns across multiple files
+- Use the file list and summary to understand the scope of changes
+- Choose an appropriate scope that captures the main area of change
+
 Example formats:
 - feat: add login functionality
 - fix(auth): correct password validation
 - refactor: simplify user management logic
+- chore(deps): update dependencies
+- refactor(logging): standardize logger implementation across services
